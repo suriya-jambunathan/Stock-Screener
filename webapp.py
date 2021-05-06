@@ -59,7 +59,6 @@ user_input = get_user_input()
 #Set a subheader and display user input
 #st.subheader('User Input: ')
 #st.write(user_input)
-#user_input = ['112699','NASDAQ']
 
 #Store model predictions in a variable
 if user_input[0] == '112699':
