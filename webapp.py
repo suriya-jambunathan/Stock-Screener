@@ -17,10 +17,6 @@ sys.path.append('src/')
 from tradingview_ta import TA_Handler, Interval, Exchange
 import joblib 
 
-
-
-from classes import *
-
 import pyutilib.subprocess.GlobalData
 
 import ptvsd
