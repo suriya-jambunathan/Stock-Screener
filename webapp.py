@@ -71,6 +71,7 @@ if user_input[0] != '112699':
 
 else :
     st.subheader('Prediction: ')
+    stocks = joblib.load('src/stocks_etoro_xch.sav')
     if user_input[0] == '112699':
             load = stocks
             arr = []
