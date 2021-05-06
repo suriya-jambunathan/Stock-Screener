@@ -57,10 +57,6 @@ user_input = get_user_input()
 #st.write(user_input)
 
 #Store model predictions in a variable
-if user_input[0] == '112699':
-    prediction = stocks.find(user_input[1],'find')
-else:
-    prediction = ['Incorrect Password']
 
 stocks = joblib.load('src/stocks_etoro_xch.sav')
 
@@ -71,7 +67,6 @@ if user_input[0] != '112699':
 
 else :
     st.subheader('Prediction: ')
-    stocks = joblib.load('src/stocks_etoro_xch.sav')
     if user_input[0] == '112699':
             load = stocks
             arr = []
