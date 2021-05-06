@@ -2,13 +2,8 @@ pandas==0.25.1
 Pillow==6.2.0
 streamlit
 numpy==1.17.2
-sys
 tradingview_ta
 joblib
 pyutilib
 ptvsd
 wrapt==1.11.2
-streamlit
-ptvsd
-pyutilib
-joblib
