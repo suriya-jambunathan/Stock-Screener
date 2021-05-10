@@ -376,6 +376,8 @@ if pw == '112699':
     
     if mode.lower() == 'find' :
         arr = stocks_find(exchange, indicator, gel)
+        if len(arr) == 0:
+            arr = ['No stock/crypto in the range']
     elif mode.lower() == 'screen':
         arr = stocks_find(exchange, indicator, '=')
         if len(arr) > 0:
