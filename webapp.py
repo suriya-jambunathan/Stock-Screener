@@ -334,10 +334,10 @@ def get_user_password():
 
 
 def get_user_input():
-    exchange  = st.text_input('Exchange/City', '')
-    ind       = st.text_input('Indicator', '')
+    exchange  = st.text_input('Exchange/City (eg: nasdaq, london, nyse, ... )', '')
+    ind       = st.text_input('Indicator (ichimoku/ema)', '')
     gel       = st.text_input('>/=/<', '')
-    mode      = st.text_input('Mode', '')
+    mode      = st.text_input('Mode (find/screen)', '')
     
     #transform the data into a dataframe
     #features = user_data.values
@@ -372,12 +372,15 @@ if pw == '112699':
         arr = stocks_find(exchange, indicator, gel)
     elif mode == 'screen':
         arr = stocks_find(exchange, indicator, '=')
-        while True:
-            #print('\n')
-            arr_ = stocks_find(exchange,indicator, gel, arr)
-            if len(arr_) > 0:
-                break
-        arr = arr_
+        if len(arr) > 0:
+            while True:
+                #print('\n')
+                arr_ = stocks_find(exchange,indicator, gel, arr)
+                if len(arr_) > 0:
+                    break
+            arr = arr_
+        else:
+            arr = ['No stock/crypto in the range']
     #Set a subheader and display prediction
     for i in arr:
         st.write(i)
