@@ -340,6 +340,7 @@ drop_downs = [['','NASDAQ', 'NYSE', 'Crypto', 'London', 'Paris', 'Hong Kong'],
 
 def get_user_input():
     d_d = drop_downs
+    run = st.checkbox('Run')
     exchange  = st.selectbox("Exchange/City: ",d_d[0])
     ind       = st.selectbox("Indicator: ",d_d[1])
     gel       = st.selectbox("</=/>: ",d_d[2])
@@ -348,7 +349,7 @@ def get_user_input():
     #transform the data into a dataframe
     #features = user_data.values
     #features = list(features)
-    return([exchange, ind, gel, mode])
+    return([exchange, ind, gel, mode, run])
     
 #Store the user inputs
 pw = get_user_password()
@@ -363,51 +364,51 @@ if pw == '112699':
     #user_input = ['112699','NASDAQ']
     
     #Store model predictions in a variable
-        
-    arr = []
+    if user_input[4]:
+        arr = []
 
-    st.subheader('Prediction: ')
-    load = stocks
-    arr = []
-    exchange  = user_input[0]
-    indicator = user_input[1]
-    gel       = user_input[2]
-    mode      = user_input[3]
-    
-    if mode.lower() == 'find' :
-        arr = stocks_find(exchange, indicator, gel)
-        if len(arr) == 0:
-            arr = ['No stock/crypto in the range']
-    elif mode.lower() == 'screen':
-        arr = stocks_find(exchange, indicator, '=')
-        if len(arr) > 0:
-            while True:
-                #print('\n')
-                arr_ = stocks_find(exchange,indicator, gel, arr)
-                if len(arr_) > 0:
-                    break
-            arr = arr_
-        else:
-            arr = ['No stock/crypto in the range']
-    
-    if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange.lower() == 'crypto':
-        suffix = ''
-    elif exchange.lower() == 'london':
-        suffix = '.l'
-    elif exchange.lower() == 'paris':
-        suffix = '.pa'
-    elif exchange.lower() == 'hk' or exchange.lower() == 'hong kong':
-        suffix = '.hk'
-        
-    #Set a subheader and display prediction
-    for i in arr:
-        if i == 'No stock/crypto in the range':
-            st.write(i)
-        else:
-            if exchange.lower() == 'crypto':
-                i = i[:-3]
-            link = '['+ i + ']' + '(https://www.etoro.com/markets/' + i + suffix + '/chart)'
-            st.markdown(link, unsafe_allow_html=True)
+        st.subheader('Prediction: ')
+        load = stocks
+        arr = []
+        exchange  = user_input[0]
+        indicator = user_input[1]
+        gel       = user_input[2]
+        mode      = user_input[3]
+
+        if mode.lower() == 'find' :
+            arr = stocks_find(exchange, indicator, gel)
+            if len(arr) == 0:
+                arr = ['No stock/crypto in the range']
+        elif mode.lower() == 'screen':
+            arr = stocks_find(exchange, indicator, '=')
+            if len(arr) > 0:
+                while True:
+                    #print('\n')
+                    arr_ = stocks_find(exchange,indicator, gel, arr)
+                    if len(arr_) > 0:
+                        break
+                arr = arr_
+            else:
+                arr = ['No stock/crypto in the range']
+
+        if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange.lower() == 'crypto':
+            suffix = ''
+        elif exchange.lower() == 'london':
+            suffix = '.l'
+        elif exchange.lower() == 'paris':
+            suffix = '.pa'
+        elif exchange.lower() == 'hk' or exchange.lower() == 'hong kong':
+            suffix = '.hk'
+
+        #Set a subheader and display prediction
+        for i in arr:
+            if i == 'No stock/crypto in the range':
+                st.write(i)
+            else:
+                if exchange.lower() == 'crypto':
+                    i = i[:-3]
+                link = '['+ i + ']' + '(https://www.etoro.com/markets/' + i + suffix + '/chart)'
+                st.markdown(link, unsafe_allow_html=True)
                     
 
 else :
