@@ -31,6 +31,7 @@ st.write("""
 # STOCK SCREEN
 """)
 
+
 #function
 
 
@@ -336,10 +337,12 @@ def get_user_input():
     exchange  = st.text_input('Exchange/City', '')
     ind       = st.text_input('Indicator', '')
     gel       = st.text_input('>/=/<', '')
+    mode      = st.text_input('Mode', '')
+    
     #transform the data into a dataframe
     #features = user_data.values
     #features = list(features)
-    return([exchange, ind, gel])
+    return([exchange, ind, gel, mode])
     
 #Store the user inputs
 pw = get_user_password()
@@ -363,8 +366,18 @@ if pw == '112699':
     exchange  = user_input[0]
     indicator = user_input[1]
     gel       = user_input[2]
+    mode      = user_input[3]
     
-    arr = stocks_find(exchange, indicator, gel)
+    if mode == 'find' :
+        arr = stocks_find(exchange, indicator, gel)
+    elif mode == 'screen':
+        arr = stocks_find(exchange, indicator, '=')
+        while True:
+            #print('\n')
+            arr_ = stocks_find(exchange,indicator, gel, arr)
+            if len(arr_) > 0:
+                break
+        arr = arr_
     #Set a subheader and display prediction
     for i in arr:
         st.write(i)
