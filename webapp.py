@@ -340,11 +340,11 @@ drop_downs = [['','NASDAQ', 'NYSE', 'Crypto', 'London', 'Paris', 'Hong Kong'],
 
 def get_user_input():
     d_d = drop_downs
-    run = st.checkbox('Run')
     exchange  = st.selectbox("Exchange/City: ",d_d[0])
     ind       = st.selectbox("Indicator: ",d_d[1])
     gel       = st.selectbox("</=/>: ",d_d[2])
     mode      = st.selectbox("Mode: ",d_d[3])
+    run = st.checkbox('Run')
     
     #transform the data into a dataframe
     #features = user_data.values
