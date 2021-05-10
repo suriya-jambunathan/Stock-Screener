@@ -385,13 +385,13 @@ if pw == '112699':
         else:
             arr = ['No stock/crypto in the range']
     
-    if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange == 'crypto':
+    if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange.lower() == 'crypto':
         suffix = ''
     elif exchange.lower() == 'london':
         suffix = '.l'
     elif exchange.lower() == 'paris':
         suffix = '.pa'
-    elif exchange.lower() == 'hk':
+    elif exchange.lower() == 'hk' or exchange.lower() == 'hong kong':
         suffix = '.hk'
         
     #Set a subheader and display prediction
