@@ -394,7 +394,8 @@ if pw == '112699':
         if i == 'No stock/crypto in the range':
             st.write(i)
         else:
-            
+             if exchange.lower() == 'crypto':
+                 i = i[:-3]
             link = '['+ i + ']' + '(https://www.etoro.com/markets/' + i + suffix + '/chart)'
             st.markdown(link, unsafe_allow_html=True)
                     
