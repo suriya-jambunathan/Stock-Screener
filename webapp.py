@@ -228,7 +228,7 @@ def stocks_find(exchange, ind, gel, data = None):
     load = stocks
             
     arr = []
-    if exchange.lower() == 'hk':
+    if exchange.lower() == 'hk' or exchange.lower() == 'hong kong':
         i = 1
         xch1 = "HKEX"
         xch2 = "HK"
@@ -329,13 +329,18 @@ def get_user_password():
     #features = user_data.values
     #features = list(features)
     return(password)
-
+    
+drop_downs = [['','NASDAQ', 'NYSE', 'Crypto', 'London', 'Paris', 'Hong Kong'],
+                  ['','Ichimoku', 'EMA'],
+                  ['','<', '=', '>'],
+                  ['','Find', 'Screen']]
 
 def get_user_input():
-    exchange  = st.text_input('Exchange/City (eg: nasdaq, london, nyse, ... )', '')
-    ind       = st.text_input('Indicator (ichimoku/ema)', '')
-    gel       = st.text_input('>/=/<', '')
-    mode      = st.text_input('Mode (find/screen)', '')
+    d_d = drop_downs
+    exchange  = st.selectbox("Exchange/City: ",d_d[0])
+    ind       = st.selectbox("Indicator: ",d_d[1])
+    gel       = st.selectbox("</=/>: ",d_d[2])
+    mode      = st.selectbox("Mode: ",d_d[3])
     
     #transform the data into a dataframe
     #features = user_data.values
@@ -366,9 +371,9 @@ if pw == '112699':
     gel       = user_input[2]
     mode      = user_input[3]
     
-    if mode == 'find' :
+    if mode.lower() == 'find' :
         arr = stocks_find(exchange, indicator, gel)
-    elif mode == 'screen':
+    elif mode.lower() == 'screen':
         arr = stocks_find(exchange, indicator, '=')
         if len(arr) > 0:
             while True:
