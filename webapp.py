@@ -286,34 +286,37 @@ def stocks_find(exchange, ind, gel, data = None):
             ema20  = anls[35]
             ema50  = anls[39]
             ema100 = anls[41]
+            valo   = anls[83]
             
-            if 'ichi' in ind.lower():
-                if (gel == '=') or (gel == 'eq'):
-                    if Blue_line == Red_line :
-                        print(comp)
-                        arr.append(comp)
-                elif (gel == '>') or ('g' in gel):
-                    if Blue_line > Red_line :
-                        print(comp)
-                        arr.append(comp)
-                elif (gel == '<') or ('l' in gel):
-                    if Blue_line < Red_line :
-                        print(comp)
-                        arr.append(comp)
-                        
-            elif 'ema' in  ind.lower():
-                if (gel == '=') or ('b' in gel):
-                    if (val < ema20) and (val > ema50) and ( ema50 > ema100) and (ema20 > ema50) :
-                        print(comp)
-                        arr.append(comp)
-                elif (gel == '>') or ('g' in gel):
-                    if (val > ema20) and (ema20 > ema50) and (ema50 > ema100) :
-                        print(comp)
-                        arr.append(comp)
-                elif (gel == '<') or ('l' in gel):
-                    if (val < ema100) :
-                        print(comp)
-                        arr.append(comp)
+            if val > valo:
+            
+                if 'ichi' in ind.lower():
+                    if (gel == '=') or (gel == 'eq'):
+                        if Blue_line == Red_line :
+                            print(comp)
+                            arr.append(comp)
+                    elif (gel == '>') or ('g' in gel):
+                        if Blue_line > Red_line :
+                            print(comp)
+                            arr.append(comp)
+                    elif (gel == '<') or ('l' in gel):
+                        if Blue_line < Red_line :
+                            print(comp)
+                            arr.append(comp)
+                            
+                elif 'ema' in  ind.lower():
+                    if (gel == '=') or ('b' in gel):
+                        if (val < ema20) and (val > ema50) and ( ema50 > ema100) and (ema20 > ema50) :
+                            print(comp)
+                            arr.append(comp)
+                    elif (gel == '>') or ('g' in gel):
+                        if (val > ema20) and (ema20 > ema50) and (ema50 > ema100) :
+                            print(comp)
+                            arr.append(comp)
+                    elif (gel == '<') or ('l' in gel):
+                        if (val < ema100) :
+                            print(comp)
+                            arr.append(comp)
             
         except:
             continue
