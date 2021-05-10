@@ -320,8 +320,6 @@ def stocks_find(exchange, ind, gel, data = None):
     return (arr)
 
 
-
-
 #Get Feature inout from users
 
 def get_user_password():
@@ -381,9 +379,25 @@ if pw == '112699':
             arr = arr_
         else:
             arr = ['No stock/crypto in the range']
+    
+    if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange == 'crypto':
+        suffix = ''
+    elif exchange.lower() == 'london':
+        suffix = '.l'
+    elif exchange.lower() == 'paris':
+        suffix = '.pa'
+    elif exchange.lower() == 'hk':
+        suffix = '.hk'
+        
     #Set a subheader and display prediction
     for i in arr:
-        st.write(i)
+        if i == 'No stock/crypto in the range':
+            st.write(i)
+        else:
+            
+            link = '['+ i + ']' + '(https://www.etoro.com/markets/' + i + suffix + '/chart)'
+            st.markdown(link, unsafe_allow_html=True)
+                    
 
 else :
     st.write('Incorrect Password')
