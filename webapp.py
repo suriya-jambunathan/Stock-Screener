@@ -288,26 +288,25 @@ def stocks_find(exchange, ind, gel,PreMarket, data = None):
             ema50  = anls[39]
             ema100 = anls[41]
             valo   = anls[83]
-            pm     = get_premarket_price(comp)
-            
-            pm_bools = []
             
             cond = False
-            
-            if 'above' in PreMarket.lower():
-                if pm > val:
+            try:
+                pm     = get_premarket_price(comp)
+                if 'above' in PreMarket.lower():
+                    if pm > val:
+                        cond = True
+                elif 'equal' in PreMarket.lower():
+                    if pm == val:
+                        cond = True
+                elif 'below' in PreMarket.lower():
+                    if pm < val:
+                        cond = True
+                elif "Doesn't Matter" in PreMarket.lower():
                     cond = True
-            elif 'equal' in PreMarket.lower():
-                if pm == val:
-                    cond = True
-            elif 'below' in PreMarket.lower():
-                if pm < val:
-                    cond = True
-            elif "Doesn't Matter" in PreMarket.lower():
+            except:
                 cond = True
-            
-            
-            
+                continue
+          
             if cond:
                 
                 if 'ichi' in ind.lower():
