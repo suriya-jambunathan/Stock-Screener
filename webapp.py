@@ -301,7 +301,7 @@ def stocks_find(exchange, ind, gel,PreMarket, data = None):
                 elif 'below' in PreMarket.lower():
                     if pm < val:
                         cond = True
-                elif ("Doesn't Matter" in PreMarket.lower()) or ("" == PreMarket):
+                elif ("doesn't matter !" in PreMarket.lower()) or ("" == PreMarket):
                     cond = True
             except:
                 cond = True
