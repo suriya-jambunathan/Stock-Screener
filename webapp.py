@@ -380,11 +380,11 @@ if pw == '112699':
             if len(arr) == 0:
                 arr = ['No stock/crypto in the range']
         elif mode.lower() == 'screen':
-            arr = stocks_find(exchange, indicator, '=')
+            arr = stocks_find(exchange, indicator, gel)
             if len(arr) > 0:
                 while True:
                     #print('\n')
-                    arr_ = stocks_find(exchange,indicator, gel, arr)
+                    arr_ = stocks_find(exchange,indicator, '=', arr)
                     if len(arr_) > 0:
                         break
                 arr = arr_
