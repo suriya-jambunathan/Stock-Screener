@@ -7,3 +7,4 @@ joblib
 pyutilib
 ptvsd
 wrapt==1.11.2
+yahoo_fin
