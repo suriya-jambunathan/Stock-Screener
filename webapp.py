@@ -301,7 +301,7 @@ def stocks_find(exchange, ind, gel,PreMarket, data = None):
                 elif 'below' in PreMarket.lower():
                     if pm < val:
                         cond = True
-                elif "Doesn't Matter" in PreMarket.lower():
+                elif ("Doesn't Matter" in PreMarket.lower()) or ("" == PreMarket):
                     cond = True
             except:
                 cond = True
@@ -357,7 +357,7 @@ def get_user_password():
 drop_downs = [['','NASDAQ', 'NYSE', 'Crypto', 'London', 'Paris', 'Hong Kong'],
                   ['','Ichimoku', 'EMA'],
                   ['','<', '=', '>'],
-                  ['','Above','Equal','Below'],
+                  ["","Above","Equal","Below", "Doesn't Matter !"],
                   ['','Find', 'Screen']]
 
 def get_user_input():
