@@ -16,6 +16,7 @@ import sys
 sys.path.append('src/')
 from tradingview_ta import TA_Handler, Interval, Exchange
 import joblib 
+from yahoo_fin.stock_info import get_premarket_price
 
 
 
@@ -223,7 +224,7 @@ stocks = joblib.load('src/stocks_etoro_xch.sav')
 
 
     
-def stocks_find(exchange, ind, gel, data = None):
+def stocks_find(exchange, ind, gel,PreMarket, data = None):
     #load = joblib.load('stocks_etoro_xch.sav')
     load = stocks
             
@@ -287,9 +288,28 @@ def stocks_find(exchange, ind, gel, data = None):
             ema50  = anls[39]
             ema100 = anls[41]
             valo   = anls[83]
+            pm     = get_premarket_price(comp)
             
-            if val > valo:
+            pm_bools = []
             
+            cond = False
+            
+            if 'above' in PreMarket.lower():
+                if pm > val:
+                    cond = True
+            elif 'equal' in PreMarket.lower():
+                if pm == val:
+                    cond = True
+            elif 'below' in PreMarket.lower():
+                if pm < val:
+                    cond = True
+            elif "Doesn't Matter" in PreMarket.lower():
+                cond = True
+            
+            
+            
+            if cond:
+                
                 if 'ichi' in ind.lower():
                     if (gel == '=') or (gel == 'eq'):
                         if Blue_line == Red_line :
@@ -317,6 +337,8 @@ def stocks_find(exchange, ind, gel, data = None):
                         if (val < ema100) :
                             print(comp)
                             arr.append(comp)
+                else:
+                    continue
             
         except:
             continue
@@ -336,6 +358,7 @@ def get_user_password():
 drop_downs = [['','NASDAQ', 'NYSE', 'Crypto', 'London', 'Paris', 'Hong Kong'],
                   ['','Ichimoku', 'EMA'],
                   ['','<', '=', '>'],
+                  ['','Above','Equal','Below'],
                   ['','Find', 'Screen']]
 
 def get_user_input():
@@ -343,13 +366,13 @@ def get_user_input():
     exchange  = st.selectbox("Exchange/City: ",d_d[0])
     ind       = st.selectbox("Indicator: ",d_d[1])
     gel       = st.selectbox("</=/>: ",d_d[2])
-    mode      = st.selectbox("Mode: ",d_d[3])
-    run = st.checkbox('Run')
-    
+    PreMarket = st.selectbox("Pre-Market: ",d_d[3])
+    mode      = st.selectbox("Mode: ",d_d[4])
+    run       = st.checkbox("Run")
     #transform the data into a dataframe
     #features = user_data.values
     #features = list(features)
-    return([exchange, ind, gel, mode, run])
+    return([exchange, ind, gel, PreMarket, mode, run])
     
 #Store the user inputs
 pw = get_user_password()
@@ -364,33 +387,34 @@ if pw == '112699':
     #user_input = ['112699','NASDAQ']
     
     #Store model predictions in a variable
-    if user_input[4]:
+    if user_input[5]:
         arr = []
-
+    
         st.subheader('Prediction: ')
         load = stocks
         arr = []
         exchange  = user_input[0]
         indicator = user_input[1]
         gel       = user_input[2]
-        mode      = user_input[3]
-
+        PreMarket = user_input[3]
+        mode      = user_input[4]
+        
         if mode.lower() == 'find' :
-            arr = stocks_find(exchange, indicator, gel)
+            arr = stocks_find(exchange, indicator, gel, PreMarket)
             if len(arr) == 0:
                 arr = ['No stock/crypto in the range']
         elif mode.lower() == 'screen':
-            arr = stocks_find(exchange, indicator, gel)
+            arr = stocks_find(exchange, indicator, gel, PreMarket)
             if len(arr) > 0:
                 while True:
                     #print('\n')
-                    arr_ = stocks_find(exchange,indicator, '=', arr)
+                    arr_ = stocks_find(exchange,indicator, '=',PreMarket, arr)
                     if len(arr_) > 0:
                         break
                 arr = arr_
             else:
                 arr = ['No stock/crypto in the range']
-
+        
         if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange.lower() == 'crypto':
             suffix = ''
         elif exchange.lower() == 'london':
@@ -399,7 +423,7 @@ if pw == '112699':
             suffix = '.pa'
         elif exchange.lower() == 'hk' or exchange.lower() == 'hong kong':
             suffix = '.hk'
-
+            
         #Set a subheader and display prediction
         for i in arr:
             if i == 'No stock/crypto in the range':
@@ -410,7 +434,6 @@ if pw == '112699':
                 link = '['+ i + ']' + '(https://www.etoro.com/markets/' + i + suffix + '/chart)'
                 st.markdown(link, unsafe_allow_html=True)
                     
-
 else :
     st.write('Incorrect Password')
 
