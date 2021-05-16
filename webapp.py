@@ -289,9 +289,18 @@ def stocks_find(exchange, ind, gel,PreMarket, data = None):
             ema100 = anls[41]
             valo   = anls[83]
             
+            if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange.lower() == 'crypto':
+                suffix = ''
+            elif exchange.lower() == 'london':
+                suffix = '.l'
+            elif exchange.lower() == 'paris':
+                suffix = '.pa'
+            elif exchange.lower() == 'hk' or exchange.lower() == 'hong kong':
+                suffix = '.hk'
+            
             cond = False
             try:
-                pm     = get_premarket_price(comp)
+                pm     = get_premarket_price(comp + suffix)
                 if 'above' in PreMarket.lower():
                     if pm > val:
                         cond = True
