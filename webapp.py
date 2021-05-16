@@ -234,33 +234,37 @@ def stocks_find(exchange, ind, gel,PreMarket, data = None):
         xch1 = "HKEX"
         xch2 = "HK"
         scr  = "hongkong"
+        suffix = '.hk'
     elif exchange.lower() == 'london':
         i = 2
         xch1 = "LSE"
         xch2 = "LSIN"
         scr  = "UK"
+        suffix = '.l'
     elif exchange.lower() == 'nasdaq':
         i = 3
         xch1 = "NASDAQ"
         xch2 = "NASDAQ"
         scr  = "america"
+        suffix = ''
     elif exchange.lower() == 'nyse':
         i = 4
         xch1 = "LSE"
         xch2 = "LSIN"
         scr  = "UK"
+        suffix = ''
     elif exchange.lower() == 'paris':
         i = 5
         xch1 = "EURONEXT"
         xch2 = "EURONEXT"
         scr  = "France"
-        
+        suffix = '.pa'
     elif exchange.lower() == 'crypto':
         i = 6
         xch1 = "binance"
         xch2 = "bitstamp"
         scr  = "crypto"
-        
+        suffix = ''
     if data is not None:
         load = [[0]]*7
         load[i] = data
@@ -288,16 +292,7 @@ def stocks_find(exchange, ind, gel,PreMarket, data = None):
             ema50  = anls[39]
             ema100 = anls[41]
             valo   = anls[83]
-            
-            if exchange.lower() == 'nasdaq' or exchange.lower() == 'nyse' or exchange.lower() == 'crypto':
-                suffix = ''
-            elif exchange.lower() == 'london':
-                suffix = '.l'
-            elif exchange.lower() == 'paris':
-                suffix = '.pa'
-            elif exchange.lower() == 'hk' or exchange.lower() == 'hong kong':
-                suffix = '.hk'
-            
+           
             cond = False
             try:
                 pm     = get_premarket_price(comp + suffix)
