@@ -305,7 +305,6 @@ def stocks_find(exchange, ind, gel,PreMarket, data = None):
                     cond = True
             except:
                 cond = True
-                continue
           
             if cond:
                 
