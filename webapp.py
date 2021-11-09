@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Thu May  6 06:21:54 2021
-
 @author: suriyaprakashjambunathan
 """
 
